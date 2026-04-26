@@ -52,10 +52,7 @@ The client is built using modern, bleeding-edge web technologies to ensure a sca
 Ensure you have the following installed on your machine:
 - Node.js (v20 or higher recommended)
 - npm or yarn
-
-> [!IMPORTANT]
-> **Backend Requirement:** This frontend application requires the `finBridge-api` backend to function. The backend is built with **Laravel**. 
-> You must clone, set up, and run the backend server from: **[Sabuj-Chowdhury/finBridge-api](https://github.com/Sabuj-Chowdhury/finBridge-api)**
+- **Backend API:** This project requires the [finBridge API](https://github.com/Sabuj-Chowdhury/finBridge-api) (built with Laravel) to be running.
 
 ### Installation
 
@@ -73,7 +70,7 @@ Ensure you have the following installed on your machine:
 3. **Configure Environment Variables:**
    Create a `.env.local` file in the root directory and configure your backend API URL:
    ```env
-   NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+   NEXT_PUBLIC_API_URL=http://localhost:8000/api
    ```
    *(Ensure your backend server is running and accessible at this URL)*
 
