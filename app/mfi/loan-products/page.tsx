@@ -31,6 +31,7 @@ interface LoanProduct {
   id: string;
   mfi_id: string;
   name: string;
+  min_amount: string | null;
   max_amount: string;
   interest_rate: string;
   duration_months: number;
@@ -43,6 +44,7 @@ interface LoanProduct {
 
 interface LoanProductForm {
   name: string;
+  min_amount: string;
   max_amount: string;
   interest_rate: string;
   duration_months: string;
@@ -52,6 +54,7 @@ interface LoanProductForm {
 
 const initialForm: LoanProductForm = {
   name: "",
+  min_amount: "",
   max_amount: "",
   interest_rate: "",
   duration_months: "",
@@ -107,7 +110,9 @@ export default function ManageLoanProductsPage() {
 
   const validate = (): boolean => {
     if (!form.name.trim()) { toast.error("Product name is required."); return false; }
+    if (!form.min_amount || Number(form.min_amount) <= 0) { toast.error("Valid minimum amount required."); return false; }
     if (!form.max_amount || Number(form.max_amount) <= 0) { toast.error("Valid maximum amount required."); return false; }
+    if (Number(form.min_amount) > Number(form.max_amount)) { toast.error("Minimum amount cannot be greater than maximum amount."); return false; }
     if (!form.interest_rate || Number(form.interest_rate) < 0) { toast.error("Valid interest rate required."); return false; }
     if (!form.duration_months || Number(form.duration_months) < 1) { toast.error("Duration must be at least 1 month."); return false; }
     if (!form.description.trim()) { toast.error("Description is required."); return false; }
@@ -122,6 +127,7 @@ export default function ManageLoanProductsPage() {
     try {
       const payload = {
         name: form.name.trim(),
+        min_amount: Number(form.min_amount),
         max_amount: Number(form.max_amount),
         interest_rate: Number(form.interest_rate),
         duration_months: Number(form.duration_months),
@@ -151,6 +157,7 @@ export default function ManageLoanProductsPage() {
     setEditingId(p.id);
     setForm({
       name: p.name,
+      min_amount: p.min_amount ? String(p.min_amount) : "",
       max_amount: String(p.max_amount),
       interest_rate: String(p.interest_rate),
       duration_months: String(p.duration_months),
@@ -279,22 +286,26 @@ export default function ManageLoanProductsPage() {
                 </Field>
 
                 <div className="grid grid-cols-2 gap-3">
+                  <Field label="Min Amount" required icon={<DollarSign size={12} />}>
+                    <input type="number" name="min_amount" min="1" placeholder="10000" value={form.min_amount} onChange={handleChange} disabled={submitting} className={inputClass} />
+                  </Field>
                   <Field label="Max Amount" required icon={<DollarSign size={12} />}>
                     <input type="number" name="max_amount" min="1" placeholder="50000" value={form.max_amount} onChange={handleChange} disabled={submitting} className={inputClass} />
-                  </Field>
-                  <Field label="Duration" required icon={<Calendar size={12} />} hint="Months">
-                    <input type="number" name="duration_months" min="1" placeholder="6" value={form.duration_months} onChange={handleChange} disabled={submitting} className={inputClass} />
                   </Field>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
+                  <Field label="Duration" required icon={<Calendar size={12} />} hint="Months">
+                    <input type="number" name="duration_months" min="1" placeholder="6" value={form.duration_months} onChange={handleChange} disabled={submitting} className={inputClass} />
+                  </Field>
                   <Field label="Interest Rate" required icon={<Percent size={12} />} hint="% APR">
                     <input type="number" name="interest_rate" min="0" step="0.01" placeholder="12" value={form.interest_rate} onChange={handleChange} disabled={submitting} className={inputClass} />
                   </Field>
-                  <Field label="Processing Fee" required icon={<BadgePercent size={12} />} hint="One-time (৳)">
-                    <input type="number" name="processing_fee" min="0" step="0.01" placeholder="250.00" value={form.processing_fee} onChange={handleChange} disabled={submitting} className={inputClass} />
-                  </Field>
                 </div>
+
+                <Field label="Processing Fee" required icon={<BadgePercent size={12} />} hint="One-time fee charged on disbursal (৳)">
+                  <input type="number" name="processing_fee" min="0" step="0.01" placeholder="250.00" value={form.processing_fee} onChange={handleChange} disabled={submitting} className={inputClass} />
+                </Field>
 
                 <Field label="Description" required icon={<FileText size={12} />}>
                   <textarea name="description" rows={3} placeholder="Describe eligibility and benefits..." value={form.description} onChange={handleChange} disabled={submitting} className="w-full p-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all duration-200 placeholder:text-muted-foreground/50 text-sm resize-none disabled:opacity-50" />
@@ -383,8 +394,8 @@ export default function ManageLoanProductsPage() {
                     {/* Financial Summary */}
                     <div className="sm:text-right space-y-1 bg-muted/30 p-3 rounded-xl border border-border/50 shrink-0">
                       <div className="flex justify-between sm:justify-end items-center gap-4">
-                        <span className="text-xs text-muted-foreground">Max Amount</span>
-                        <span className="font-bold text-primary">৳{Number(p.max_amount).toLocaleString()}</span>
+                        <span className="text-xs text-muted-foreground">Amount Limit</span>
+                        <span className="font-bold text-primary">৳{p.min_amount ? Number(p.min_amount).toLocaleString() : 0} - ৳{Number(p.max_amount).toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between sm:justify-end items-center gap-4">
                         <span className="text-xs text-muted-foreground">Interest</span>

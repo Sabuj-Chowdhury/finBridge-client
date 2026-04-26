@@ -115,9 +115,9 @@ export default function LoansPage() {
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1 p-3 rounded-xl bg-muted/50">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                            <Banknote size={16} /> Max Amount
+                            <Banknote size={16} /> Amount Limit
                           </div>
-                          <p className="font-bold text-lg">৳ {Number(loan.max_amount).toLocaleString()}</p>
+                          <p className="font-bold text-lg">৳ {loan.min_amount ? Number(loan.min_amount).toLocaleString() : "0"} - ৳ {Number(loan.max_amount).toLocaleString()}</p>
                         </div>
                         <div className="space-y-1 p-3 rounded-xl bg-muted/50">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm">

@@ -11,7 +11,8 @@ import {
   Landmark,
   ClipboardList,
   CreditCard,
-  BadgeCheck
+  BadgeCheck,
+  TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/auth.store";
@@ -31,11 +32,16 @@ const menuItems = {
     { name: "Profile", href: "/mfi", icon: User },
     { name: "Loan Products", href: "/mfi/loan-products", icon: Landmark },
     { name: "Applications", href: "/mfi/applications", icon: ClipboardList },
+    { name: "Payments", href: "/mfi/payments", icon: CreditCard },
     { name: "My Subscription", href: "/mfi/subscription", icon: BadgeCheck },
   ],
   PLATFORM_ADMIN: [
     { name: "Profile", href: "/admin", icon: User },
-    { name: "Subscription Plans", href: "/admin/subscription-plans", icon: CreditCard },
+    { name: "MFIs", href: "/admin/mfis", icon: Landmark },
+    { name: "Payments", href: "/admin/payments", icon: CreditCard },
+    { name: "Applications", href: "/admin/applications", icon: ClipboardList },
+    { name: "Revenue Report", href: "/admin/reports/revenue", icon: TrendingUp },
+    { name: "Subscription Plans", href: "/admin/subscription-plans", icon: BadgeCheck },
   ],
 };
 
