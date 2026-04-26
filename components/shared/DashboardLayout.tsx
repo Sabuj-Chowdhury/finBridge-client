@@ -10,7 +10,8 @@ import {
   Bell,
   Landmark,
   ClipboardList,
-  CreditCard
+  CreditCard,
+  BadgeCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/auth.store";
@@ -30,6 +31,7 @@ const menuItems = {
     { name: "Profile", href: "/mfi", icon: User },
     { name: "Loan Products", href: "/mfi/loan-products", icon: Landmark },
     { name: "Applications", href: "/mfi/applications", icon: ClipboardList },
+    { name: "My Subscription", href: "/mfi/subscription", icon: BadgeCheck },
   ],
   PLATFORM_ADMIN: [
     { name: "Profile", href: "/admin", icon: User },
