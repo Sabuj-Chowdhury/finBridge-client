@@ -53,6 +53,10 @@ Ensure you have the following installed on your machine:
 - Node.js (v20 or higher recommended)
 - npm or yarn
 
+> [!IMPORTANT]
+> **Backend Requirement:** This frontend application requires the `finBridge-api` backend to function. The backend is built with **Laravel**. 
+> You must clone, set up, and run the backend server from: **[Sabuj-Chowdhury/finBridge-api](https://github.com/Sabuj-Chowdhury/finBridge-api)**
+
 ### Installation
 
 1. **Clone the repository:**
@@ -69,7 +73,7 @@ Ensure you have the following installed on your machine:
 3. **Configure Environment Variables:**
    Create a `.env.local` file in the root directory and configure your backend API URL:
    ```env
-   NEXT_PUBLIC_API_URL=http://localhost:8000/api
+   NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
    ```
    *(Ensure your backend server is running and accessible at this URL)*
 
