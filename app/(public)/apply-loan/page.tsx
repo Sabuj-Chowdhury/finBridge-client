@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { ArrowLeft, Loader2, Upload, FileText, X, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
-const ACCEPTED_TYPES = ["image/jpeg", "image/png", "application/pdf"];
+const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
 interface FileUploadFieldProps {
@@ -29,7 +29,7 @@ function FileUploadField({ label, required, file, onFile, disabled }: FileUpload
     const f = e.target.files?.[0];
     if (!f) return;
     if (!ACCEPTED_TYPES.includes(f.type)) {
-      toast.error("Invalid file type. Please upload JPG, PNG or PDF.");
+      toast.error("Invalid file type. Please upload JPG, PNG.");
       return;
     }
     if (f.size > MAX_FILE_SIZE) {
@@ -56,7 +56,7 @@ function FileUploadField({ label, required, file, onFile, disabled }: FileUpload
         <input
           ref={inputRef}
           type="file"
-          accept=".jpg,.jpeg,.png,.pdf"
+          accept=".jpg,.jpeg,.png"
           className="hidden"
           disabled={disabled}
           onChange={handleChange}
@@ -81,7 +81,7 @@ function FileUploadField({ label, required, file, onFile, disabled }: FileUpload
         ) : (
           <div className="flex items-center gap-2 text-muted-foreground">
             <Upload size={18} />
-            <span className="text-sm">Click to upload · JPG, PNG or PDF · Max 2MB</span>
+            <span className="text-sm">Click to upload · JPG, PNG Max 2MB</span>
           </div>
         )}
       </div>

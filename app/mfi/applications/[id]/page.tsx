@@ -303,24 +303,36 @@ export default function ApplicationDetailsPage({ params }: { params: Promise<{ i
                     <p className="text-sm">No documents attached.</p>
                   </div>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="grid gap-6">
                     {details.documents.map((doc, i) => (
-                      <div key={i} className="flex items-center justify-between p-3 rounded-xl border border-border bg-muted/20 hover:border-primary/30 transition-colors group">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                            <FileText size={16} />
+                      <div key={i} className="space-y-3 group">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                              <FileText size={14} />
+                            </div>
+                            <p className="font-bold text-xs uppercase tracking-widest text-muted-foreground">{doc.type}</p>
                           </div>
-                          <p className="font-bold text-sm uppercase truncate">{doc.type}</p>
+                          <a 
+                            href={doc.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-sm"
+                            title="View Full Size"
+                          >
+                            <ExternalLink size={14} />
+                          </a>
                         </div>
-                        <a 
-                          href={doc.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors shrink-0"
-                          title="View Document"
-                        >
-                          <ExternalLink size={14} />
-                        </a>
+                        
+                        <div className="relative aspect-[3/4] sm:aspect-video md:aspect-[4/3] lg:aspect-square rounded-2xl overflow-hidden border border-border bg-muted/30 shadow-inner group-hover:border-primary/30 transition-all duration-500">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img 
+                            src={doc.url} 
+                            alt={doc.type} 
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </div>
                       </div>
                     ))}
                   </div>
