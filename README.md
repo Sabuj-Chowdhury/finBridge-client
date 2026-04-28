@@ -85,7 +85,7 @@ finBridge-client/
 ### Setup
 1. **Clone & Install:**
    ```bash
-   git clone https://github.com/Sabuj-Chowdhury/finBridge-client.git
+   git clone https://github.com/betopia-btrp/finBridge-client.git
    cd finBridge-client
    npm install
    ```
