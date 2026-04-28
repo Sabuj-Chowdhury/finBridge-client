@@ -86,13 +86,14 @@ finBridge-client/
 1. **Clone & Install:**
    ```bash
    git clone https://github.com/Sabuj-Chowdhury/finBridge-client.git
+   cd finBridge-client
    npm install
    ```
 
 2. **Environment Configuration:**
    Create `.env.local`:
    ```env
-   NEXT_PUBLIC_API_URL=http://localhost:8000/api
+   NEXT_PUBLIC_API_URL=http://localhost:9000/api/v1
    ```
 
 3. **Run Dev:**
